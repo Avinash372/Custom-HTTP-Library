@@ -1,55 +1,55 @@
 class EasyHTTP {
     // make an get request
-    get(url) {
-        return new Promise((resolve, reject) => {
-            fetch(url)
-                .then((res) => res.json())
-                .then((data) => resolve(data))
-                .catch((err) => reject(err));
-        });
+    async get(url) {
+        const response = await fetch(url);
+        const resData = await response.json();
+        return resData;
     }
     // make an Http POST request
-    post(url, data) {
-        return new Promise((resolve, reject) => {
-            fetch(url, {
+    async post(url, data) {
+        try {
+            const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
                 },
                 body: JSON.stringify(data),
-            })
-                .then((resolve) => resolve.json())
-                .then((data) => resolve(data))
-                .catch((err) => reject(err));
-        });
+            });
+            const resData = await response.json();
+            return resData;
+        } catch (error) {
+            return `Error`;
+        }
     }
     // make a PUT request
-    put(url, data) {
-        return new Promise((resolve, reject) => {
-            fetch(url, {
+    async put(url, data) {
+        try {
+            const response = await fetch(url, {
                 method: "PUT",
                 headers: {
                     "content-type": "application/json",
                 },
                 body: JSON.stringify(data),
-            })
-                .then((resolve) => resolve.json())
-                .then((data) => resolve(data))
-                .catch((err) => reject(err));
-        });
+            });
+            const resData = await response.json();
+            return resData;
+        } catch (err) {
+            return err;
+        }
     }
     // make a DELETE request
-    delete(url) {
-        return new Promise((resolve, reject) => {
-            fetch(url, {
+    async delete(url) {
+        try {
+            const response = await fetch(url, {
                 method: "DELETE",
                 headers: {
                     "content-type": "application/json",
                 },
-            })
-                .then((resolve) => resolve.json())
-                .then(() => resolve("Resource deleted."))
-                .catch((err) => reject(err));
-        });
+            });
+            const resData = "Resource Deleted";
+            return resData;
+        } catch (err) {
+            return err;
+        }
     }
 }
